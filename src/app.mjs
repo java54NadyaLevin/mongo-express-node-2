@@ -7,10 +7,7 @@ import { ADD_UPDATE_COMMENT, DELETE_GET_COMMENT, GET_MOVIES_RATED } from './conf
 import schemas, { schemaParams } from './validation-schemas/schemas.mjs';
 const app = express();
 const port = process.env.PORT || 3500;
-
 const server = app.listen(port);
-
-
 server.on("listening", ()=>console.log(`server listening on port ${server.address().port}`));
 app.use(express.json());
 app.use(validateBody(schemas));

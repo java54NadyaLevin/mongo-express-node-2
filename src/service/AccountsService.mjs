@@ -20,6 +20,25 @@ export default class AccountsService {
         }
 
     }
+    async updatePassword(account) {
+        const accountDB = await this.#accounts.findOne({_id:account.username});
+        if(!accountDB) {
+            throw getError(404, `account for ${account.username} doesn't  exist`);
+        }
+        const hashPassword = bcrypt.hashSync(account.password, 10);
+        console.log(hashPassword);
+        const result = await this.#accounts.findOneAndUpdate(
+            { _id:account.username },
+            { $set: { hashPassword } },
+            { returnDocument: "after" });
+            console.log(result);
+            console.log(hashPassword);
+        if (result.hashPassword == hashPassword) {
+            console.log(hashPassword);
+            return result;
+        }
+
+    }
     #toAccountDB(account) {
         const accountDB = {};
         accountDB._id = account.username;
