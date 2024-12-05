@@ -7,7 +7,6 @@ export const mflix_route = express.Router();
 
 const mflixService = new MflixService(process.env.MONGO_URI, process.env.DB_NAME,
     process.env.MOVIES_COLLECTION, process.env.COMMENTS_COLLECTION)
-    console.log(process.env.DB_NAME);
 mflix_route.post('/comments', asyncHandler(async (req, res) => {
     const commentDB = await mflixService.addComment(req.body);
     res.status(201).end(JSON.stringify(commentDB));
